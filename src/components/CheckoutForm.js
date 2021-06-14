@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from '../hooks/useForm';
 
 const initialValue = {
   firstName: "",
@@ -15,12 +16,10 @@ const initialValue = {
 
 const CheckoutForm = (props) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [values, setValues] = useState(initialValue);
-
-  const handleChanges = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
+  //Custom hook
+  const [values, handleChanges] = useForm(initialValue);
+  //checking values
+  console.log(values, "checking values");
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowSuccessMessage(true);
@@ -33,7 +32,9 @@ const CheckoutForm = (props) => {
         <label>
           First Name:
           <input
+            type="text"
             name="firstName"
+            id="firstName"
             value={values.firstName}
             onChange={handleChanges}
           />
@@ -41,7 +42,9 @@ const CheckoutForm = (props) => {
         <label>
           Last Name:
           <input
+            type="text"
             name="lastName"
+            id="lastName"
             value={values.lastName}
             onChange={handleChanges}
           />
@@ -49,24 +52,26 @@ const CheckoutForm = (props) => {
         <label>
           Address:
           <input
+            type="text"
             name="address"
+            id="id"
             value={values.address}
             onChange={handleChanges}
           />
         </label>
         <label>
           City:
-          <input name="city" value={values.city} onChange={handleChanges} />
+          <input type="text" name="city" id="city" value={values.city} onChange={handleChanges} />
         </label>
         <label>
           State:
-          <input name="state" value={values.state} onChange={handleChanges} />
+          <input type="text" name="state" id="state" value={values.state} onChange={handleChanges} />
         </label>
         <label>
           Zip:
-          <input name="zip" value={values.zip} onChange={handleChanges} />
+          <input type="text" name="zip" id="zip" value={values.zip} onChange={handleChanges} />
         </label>
-        <button>Checkout</button>
+        <button type="submit" >Checkout</button>
       </form>
 
       {showSuccessMessage && (
@@ -87,7 +92,7 @@ const CheckoutForm = (props) => {
         </div>
       )}
     </>
-  );
-};
+  ); 
+}
 
 export default CheckoutForm;
